@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="color_3A5EA3">#3A5EA3</color>
+    <color name="color_main">#3A5EA3</color>
+    <color name="language_start_bg">#10120F</color>
+    <color name="language_text_selected">#A6E35D</color>
+    <color name="chill_green_5">#081400</color>
+    <color name="chill_green_35">#347800</color>
+    <color name="chill_green_40">#3C8B00</color>
+    <color name="chill_green_70">#85DC32</color>
+    <color name="chill_green_40_tranference">#CC3C8B00</color>
+    <color name="chip_channel">#CC000E00</color>
+    <color name="quantum_purple_primary_95">#F7EEFF</color>
+</resources>

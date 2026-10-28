@@ -1,0 +1,171 @@
+package com.example.basekotlin.util
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
+import com.google.gson.Gson
+
+class SharedPreUtils {
+
+    companion object {
+        private const val PREFS_DATA = "data"
+        private const val PREFS_FIRST_APP = "IS_FIRST_LANGUAGE"
+        private const val PREFS_COUNT_OPEN_APP = "IS_COUNT_OPEN_APP"
+        private const val PREFS_NOTIFICATION_PERMISSION = "NOTIFICATION_PERMISSION"
+        private const val KEY_RATED = "rated"
+        private const val KEY_FIRST_APP = "IS_FIRST_APP"
+        private const val KEY_COUNT_OPEN_APP = "IS_COUNT_OPEN_APP"
+        private const val KEY_NOTIFICATION_PERMISSION_DENY_COUNT =
+            "NOTIFICATION_PERMISSION_DENY_COUNT"
+
+        var mSharePref: SharedPreferences? = null
+        fun init(context: Context) {
+            if (mSharePref == null) {
+                mSharePref = PreferenceManager.getDefaultSharedPreferences(context)
+            }
+        }
+
+        @SuppressLint("StaticFieldLeak")
+        private var instance: SharedPreUtils? = null
+        fun getInstance(): SharedPreUtils {
+            if (instance == null) {
+                instance = SharedPreUtils()
+            }
+            return instance as SharedPreUtils
+        }
+    }
+
+    fun clearAll() {
+        mSharePref?.let {
+            it.edit().clear().apply()
+        }
+    }
+
+    fun removeValueWithKey(key: String) {
+        mSharePref?.let {
+            it.edit().remove(key).commit()
+        }
+    }
+
+    fun setString(key: String, value: String) {
+        mSharePref?.let {
+            it.edit().putString(key, value).apply()
+        }
+    }
+
+    fun getString(key: String, value: String): String? {
+        mSharePref?.let {
+            return it.getString(key, value)
+        }
+        return null
+    }
+
+    fun setInt(key: String, value: Int) {
+        mSharePref?.let {
+            it.edit().putInt(key, value).apply()
+        }
+    }
+
+    fun getInt(key: String, value: Int): Int {
+        mSharePref?.let {
+            return it.getInt(key, value)
+        }
+        return -1
+    }
+
+    fun setLong(key: String, value: Long) {
+        mSharePref?.let {
+            it.edit().putLong(key, value).apply()
+        }
+    }
+
+    fun getLong(key: String, value: Long): Long {
+        mSharePref?.let {
+            return it.getLong(key, value)
+        }
+        return -1
+    }
+
+    fun setBoolean(key: String, value: Boolean) {
+        mSharePref?.let {
+            it.edit().putBoolean(key, value).apply()
+        }
+    }
+
+    fun getBoolean(key: String, value: Boolean): Boolean {
+        return mSharePref?.getBoolean(key, value) ?: true
+    }
+
+    fun isRated(context: Context): Boolean {
+        val pre = context.getSharedPreferences(PREFS_DATA, Context.MODE_PRIVATE)
+        return pre.getBoolean(KEY_RATED, false)
+    }
+
+    fun forceRated(context: Context) {
+        val pre = context.getSharedPreferences(PREFS_DATA, Context.MODE_PRIVATE)
+        val editor = pre.edit()
+        editor.putBoolean(KEY_RATED, true)
+        editor.apply()
+    }
+
+    fun isFirstApp(context: Context): Boolean {
+        val pre = context.getSharedPreferences(PREFS_FIRST_APP, Context.MODE_PRIVATE)
+        return pre.getBoolean(KEY_FIRST_APP, false)
+    }
+
+    fun setFirstApp(context: Context) {
+        val pre = context.getSharedPreferences(PREFS_FIRST_APP, Context.MODE_PRIVATE)
+        val editor = pre.edit()
+        editor.putBoolean(KEY_FIRST_APP, true)
+        editor.apply()
+    }
+
+    fun getCountOpenApp(context: Context): Int {
+        val pre = context.getSharedPreferences(PREFS_COUNT_OPEN_APP, Context.MODE_PRIVATE)
+        return pre.getInt(KEY_COUNT_OPEN_APP, 0)
+    }
+
+    fun setCountOpenApp(context: Context): Int {
+        val pre = context.getSharedPreferences(PREFS_COUNT_OPEN_APP, Context.MODE_PRIVATE)
+        val editor = pre.edit()
+        val updatedValue = pre.getInt(KEY_COUNT_OPEN_APP, 0) + 1
+        editor.putInt(KEY_COUNT_OPEN_APP, updatedValue)
+        editor.apply()
+        return updatedValue
+    }
+
+    fun getNotificationPermissionDenyCount(context: Context): Int {
+        val pre = context.getSharedPreferences(PREFS_NOTIFICATION_PERMISSION, Context.MODE_PRIVATE)
+        return pre.getInt(KEY_NOTIFICATION_PERMISSION_DENY_COUNT, 0)
+    }
+
+    fun setNotificationPermissionDenyCount(context: Context): Int {
+        val pre = context.getSharedPreferences(PREFS_NOTIFICATION_PERMISSION, Context.MODE_PRIVATE)
+        val updatedValue = pre.getInt(KEY_NOTIFICATION_PERMISSION_DENY_COUNT, 0) + 1
+        pre.edit().putInt(KEY_NOTIFICATION_PERMISSION_DENY_COUNT, updatedValue).apply()
+        return updatedValue
+    }
+
+    fun resetNotificationPermissionDenyCount(context: Context) {
+        val pre = context.getSharedPreferences(PREFS_NOTIFICATION_PERMISSION, Context.MODE_PRIVATE)
+        pre.edit().putInt(KEY_NOTIFICATION_PERMISSION_DENY_COUNT, 0).apply()
+    }
+
+    fun setObject(context: Context, key: String?, value: Any?) {
+        if (mSharePref == null) init(context)
+        val gson = Gson()
+        val json = gson.toJson(value)
+        val editor = mSharePref!!.edit()
+        editor.putString(key, json)
+        editor.apply()
+    }
+
+    fun getObject(context: Context, key: String?, classObj: Class<*>?): Any {
+        if (mSharePref == null) init(context)
+        val gson = Gson()
+        val json = mSharePref!!.getString(key, "")
+        return gson.fromJson(json, classObj)
+    }
+
+}

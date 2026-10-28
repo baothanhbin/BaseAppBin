@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:background="@drawable/bg_radius_16"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/_12sdp">
+
+        <ImageView
+            android:id="@+id/imgIcon"
+            android:layout_width="@dimen/_56sdp"
+            android:layout_height="@dimen/_56sdp"
+            android:layout_gravity="center"
+            android:background="@drawable/rating_0" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/rating_dialog_title"
+            android:textColor="#0F0A05"
+            android:textSize="@dimen/_18ssp" />
+
+        <RatingBar
+            android:id="@+id/rtb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:numStars="5"
+            android:progressTint="#FFF732"
+            android:rating="5"
+            android:secondaryProgressTint="#FFF732"
+            android:stepSize="1"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:id="@+id/btnRateUs"
+            android:layout_width="@dimen/_111sdp"
+            android:layout_height="@dimen/_36sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/bg_green_corner_add"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/rate_us"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp" />
+
+        <TextView
+            android:id="@+id/btnNotNow"
+            android:layout_width="@dimen/_111sdp"
+            android:layout_height="@dimen/_36sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/bg_white_corner_cancel"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/not_now"
+            android:textAllCaps="false"
+            android:textColor="#595959"
+            android:textSize="@dimen/_12ssp" />
+
+    </LinearLayout>
+
+</RelativeLayout>
